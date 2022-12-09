@@ -68,7 +68,7 @@ function valideT() {
         tE.innerHTML = 'Veuillez spécifier votre numéro de téléphone.';
         return false;
     }
-    if (!tel.match(/^[0-9]+$/)) {
+    if (!tel.match(/^[0-9]+$/) || tel < 6) {
         tE.innerHTML = 'Veuillez spécifier un numéro de téléphone valide.';
         return false;
     }
@@ -110,8 +110,8 @@ function valideM() {
 
 }
 
-async function valide(event) {
-    if (!valideN() || !valideP() || !valideE() || !valideM()) {
+function valide(event) {
+    if (!valideN() && !valideP() && !valideE() && !valideM()) {
         bs.innerHTML = '<i class="bi bi-send-slash"></i> Envoyer';
         /* Pour bloquer l'envoie */
         event.preventDefault();
@@ -119,16 +119,10 @@ async function valide(event) {
     else {
         bs.innerHTML = '<i class="bi bi-send"></i> Envoyer';
         info();
-        event.preventDefault();
-        await sleep(2000);
-        event.target.submit();
-        
     }
 }
 
-function sleep(milliseconds) {  
-    return new Promise(resolve => setTimeout(resolve, milliseconds));  
- }  
+
 
 function info() {
     swal(
